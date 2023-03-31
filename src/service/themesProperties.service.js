@@ -1,20 +1,15 @@
 const { sequelize } = require("../connection");
 const { ThemesPropertiesModel } = require("../model/themesProperties.model");
 
-///cuando se trata de listar es mejor usar SQL puro por cuestion de tiempo
-const listar = async function (textoBuscar) {
+const listar = async function (id) {
 
-    console.log("listar temas/propiedades");
-
+    console.log("listar propiedades de un tema");
     try {
-        const themes_properties = await sequelize.query(`SELECT *
-        FROM themes_properties
-        WHERE 1=1
-        AND UPPER (property_name) LIKE UPPER ('%${textoBuscar}%')
+        const themesProperties = await sequelize.query(`SELECT *
+        FROM themes_properties WHERE 1=1 AND theme_id = ${id}
         ORDER BY id`);
-
-        if (themes_properties && themes_properties[0]) {
-            return themes_properties[0];
+        if (themesProperties && themesProperties[0]) {
+            return themesProperties[0];
         } else {
             return [];
         }
@@ -26,52 +21,22 @@ const listar = async function (textoBuscar) {
 
 };
 
-const consultarPorCodigo = async function (id) {
-
-    console.log("consultar 1 tema/propiedad por codigo");
-
+const actualizar = async function (id,theme_id,property_name,property_value) {
+    console.log("actualizar theme property");
+    let themePropertyRetorno = null; //guarda el tema que se va incluir o editar;
+    const data = {id, theme_id, property_name, property_value}; //se obtiene los datos del cuerpo de la peticion
     try {
-        const themes_propertiesModelResult = await ThemesPropertiesModel.findByPk(id);
-
-        if (themes_propertiesModelResult) {
-            return themes_propertiesModelResult;
-
-        } else {
-            return null;
-        }
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-
-};
-
-const actualizar = async function (
-    id,
-    theme_id,
-    property_name,
-    property_value
-) {
-    console.log("actualizar temas propiedades");
-    let tema_propiedadRetorno = null; //guarda el tema que se va incluir o editar;
-    const data = {
-    id,
-    theme_id,
-    property_name,
-    property_value}; //se obtiene los datos del cuerpo de la peticion
-
-    try {
-        let tema_propiedadExiste = null;
+        let themePropertyResult = null;
         if (id) {
-            tema_propiedadExiste = await ThemesPropertiesModel.findByPk(id);
+            themePropertyResult = await ThemesPropertiesModel.findByPk(id);
         }
-        if (tema_propiedadExiste) {
-            tema_propiedadRetorno = await ThemesPropertiesModel.update(data, { where: { id: id } });
-            tema_propiedadRetorno = data;
+        if (themePropertyResult) {
+            themePropertyRetorno = await ThemesPropertiesModel.update(data, { where: { id: id } });
+            themePropertyRetorno = data;
         } else {
-            tema_propiedadRetorno = await ThemesPropertiesModel.create(data);
+            themePropertyRetorno = await ThemesPropertiesModel.create(data);
         }
-        return tema_propiedadRetorno;
+        return themePropertyRetorno;
     } catch (error) {
         console.log(error);
         throw error;
@@ -90,5 +55,5 @@ const eliminar = async function (id) {
     }
 }; 
 module.exports = {
-    listar, consultarPorCodigo, actualizar, eliminar
+    listar, actualizar, eliminar
 };

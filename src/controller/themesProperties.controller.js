@@ -4,12 +4,12 @@ const ThemesPropertiesService = require('../service/themesProperties.service');
 const listar = async function (req, res) {
     console.log("listar temas/propiedades");
     try {
-        const themes_properties = await ThemesPropertiesService.listar(req.query.filtro || '');
-        if (themes_properties) {
+        const themesProperties = await ThemesPropertiesService.listar(req.params.id);
+        if (themesProperties) {
             // en users[0] se encuentra el listado de lo que se recupera desde el sql
             res.json({
                 success: true,
-                temas_propiedades: themes_properties
+                temas_propiedades: themesProperties
             });
         } else {
             res.json({
@@ -26,44 +26,17 @@ const listar = async function (req, res) {
     }
 }; 
 
-const consultarPorCodigo = async function (req, res) {
-    console.log("consultar 1 tema/propiedad por codigo");
-    try {
-        const themes_propertiesModelResult = await ThemesPropertiesService.consultarPorCodigo(req.params.id);
-        if (themes_propertiesModelResult) {
-            res.json({
-                success: true,
-                temas_propiedades: themes_propertiesModelResult
-            });
-        } else {
-            res.json({
-                success: true,
-                temas_propiedades: null
-            });
-        }
-    } catch (error) {
-        console.log(error);
-        res.json({
-            success: false,
-            error: error.message
-        });
-    }
-}; 
-
 const actualizar = async function (req, res) {
     console.log("actualizar temas propiedades");
-    let tema_propiedadRetorno = null; //guarda el tema que se va incluir o editar;
+    let themePropertyRetorno = null;
     try {
-        let tema_propiedadRetorno = await ThemesPropertiesService.actualizar(
-            req.body.id,
-            req.body.theme_id,
-            req.body.property_name,
+        themePropertyRetorno = await ThemesPropertiesService.actualizar(
+            req.body.id, req.body.theme_id, req.body.property_name, 
             req.body.property_value
         );
-
         res.json({
             success: true,
-            themes_properties: tema_propiedadRetorno
+            themes_properties: themePropertyRetorno
         });
     } catch (error) {
         console.log(error);
@@ -75,7 +48,7 @@ const actualizar = async function (req, res) {
 }; 
 const eliminar = async function (req, res) {
     console.log("eliminar temas propiedades");
-   
+
     try {
         const tema_propiedadRetorno =  await ThemesPropertiesService.eliminar(req.params.id);
         res.json({
@@ -91,5 +64,5 @@ const eliminar = async function (req, res) {
     }
 }; 
 module.exports = {
-    listar, consultarPorCodigo, actualizar, eliminar
+    listar, actualizar, eliminar
 };
