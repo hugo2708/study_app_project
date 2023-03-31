@@ -1,6 +1,4 @@
-const { sequelize } = require("../../connection");
-const { UserModel } = require("../../model/users.model");
-const UserService = require("../../service/users.service");
+const UserService = require("../service/users.service");
 
 const listar = async function (req, res) {
     console.log("listar usuarios");

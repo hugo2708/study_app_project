@@ -4,8 +4,11 @@ const app = express();
 
 app.use(bodyParser());
 
-const userRoute = require("./src/route/users/users.route");
- 
+const userRoute = require("./src/route/users.route");
+const themeRoute = require("./src/route/themes.route");
+const topicRoute = require("./src/route/topics.route");
+const themesPropertiesRoute = require("./src/route/themesProperties.route"); 
+
 //Ruta raiz
 app.get('/', function (req, res) {
     //Logica.
@@ -21,5 +24,8 @@ app.get('/pagina2', function (req, res) {
 
 //Llamadas a los routes de los UCs
 userRoute(app);
+themeRoute(app);
+topicRoute(app);
+themesPropertiesRoute(app);
 
 app.listen(4000);

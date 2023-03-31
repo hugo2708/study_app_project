@@ -1,4 +1,4 @@
-const themeController = require("../../controller/themes/themes.controller");
+const themeController = require("../controller/themes.controller");
 
 module.exports = function (app) {
     app.get("/themes/list", themeController.listar);

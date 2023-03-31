@@ -1,5 +1,5 @@
-const { sequelize } = require("../../connection");
-const { TopicModel } = require("../../model/topics.model");
+const { sequelize } = require("../connection");
+const { TopicModel } = require("../model/topics.model");
 
 const listar = async function (textoBuscar) {
     console.log("listar topicos");

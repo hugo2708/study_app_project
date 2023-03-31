@@ -1,4 +1,4 @@
-const userController = require('../../controller/users/users.controller');
+const userController = require('../controller/users.controller');
 
 module.exports = function (app) {
     app.get("/users/list", userController.listar);

@@ -1,4 +1,4 @@
-const ThemeService = require("../../service/themes.service");
+const ThemeService = require("../service/themes.service");
 
 const listar = async function (req, res) {
     console.log("listar temas");

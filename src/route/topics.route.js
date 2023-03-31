@@ -1,4 +1,4 @@
-const topicController = require("../../controller/topics/topics.controller");
+const topicController = require("../controller/topics.controller");
 
 module.exports = function (app) {
     app.get("/topics/list", topicController.listar);

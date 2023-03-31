@@ -1,4 +1,4 @@
-const TopicService = require("../../service/topics.service");
+const TopicService = require("../service/topics.service");
 
 const listar = async function (req, res) {
     console.log("listar topicos");
