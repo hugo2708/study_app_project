@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RefresherCustomEvent } from '@ionic/angular';
+import axios from 'axios';
 import { MessageComponent } from '../message/message.component';
 
 import { DataService, Message } from '../services/data.service';
@@ -9,9 +10,14 @@ import { DataService, Message } from '../services/data.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
   private data = inject(DataService);
-  constructor() {}
+
+  usuarios : any = [];
+
+  constructor() {
+    
+  }
 
   refresh(ev: any) {
     setTimeout(() => {
@@ -21,5 +27,23 @@ export class HomePage {
 
   getMessages(): Message[] {
     return this.data.getMessages();
+  }
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers () {
+    axios.get("http://localhost:4000/users/list")
+    .then( result => {
+      if (result.data.success == true) {
+        this.usuarios = result.data.usuarios;
+      } else {
+        console.log(result.data.error);
+      }
+      
+    }).catch(error => {
+      console.log(error.message);
+    })
   }
 }

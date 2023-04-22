@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonicModule, Platform } from '@ionic/angular';
+import axios from 'axios';
 import { DataService, Message } from '../services/data.service';
 
 @Component({
@@ -14,12 +15,24 @@ export class ViewMessagePage implements OnInit {
   private data = inject(DataService);
   private activatedRoute = inject(ActivatedRoute);
   private platform = inject(Platform);
+  usuario : any = {};
 
   constructor() {}
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.message = this.data.getMessageById(parseInt(id, 10));
+    //this.message = this.data.getMessageById(parseInt(id, 10));
+    axios.get("http://localhost:4000/user/" + id)
+    .then( result => {
+      if (result.data.success == true) {
+        this.usuario = result.data.usuario;
+      } else {
+        console.log(result.data.error);
+      }
+      
+    }).catch(error => {
+      console.log(error.message);
+    })
   }
 
   getBackButtonText() {
