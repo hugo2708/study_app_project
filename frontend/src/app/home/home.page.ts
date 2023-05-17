@@ -28,9 +28,13 @@ export class HomePage implements OnInit{
   getMessages(): Message[] {
     return this.data.getMessages();
   }
+  
+  ionViewWillEnter(): void {
+    this.getUsers();
+  }
 
   ngOnInit(): void {
-    this.getUsers();
+    //this.getUsers();
   }
 
   getUsers () {
