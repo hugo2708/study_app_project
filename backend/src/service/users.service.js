@@ -36,7 +36,7 @@ const consultarPorCodigo = async function (id) {
 };
 
 const actualizar = async function (id, name, lastname, avatar, email, password, deleted) {
-    console.log("actualizar usuarios");
+    console.log("actualizar usuarios service");
     //Variables
     let usuarioRetorno = null; //Guardará el usuario que se va a incluir o editar
     const data = {id, name, lastname, avatar, email, password, deleted};
@@ -48,7 +48,7 @@ const actualizar = async function (id, name, lastname, avatar, email, password, 
         }
         if (userModelResult) {
             //Asegurar que el usuario existe, entonces actualizar
-            usuarioRetorno = await UserModel.update({data}, { where: { id: id } });
+            usuarioRetorno = await UserModel.update(data, { where: { id: id } });
             usuarioRetorno = data;
         } else {
             //Incluir
