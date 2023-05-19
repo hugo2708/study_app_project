@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
         }else{
           this.usuario = {};
         }
-       
+
       } else {
         console.log(result.data.error);
       }
@@ -68,7 +68,7 @@ export class LoginPage implements OnInit {
     }
     
     //console.log(data);
-
+    
     axios.post("http://localhost:4000/user/login" , data)
     .then(  async result => {
       if (result.data.success == true) {

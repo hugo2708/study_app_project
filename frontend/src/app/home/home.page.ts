@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RefresherCustomEvent, ToastController } from '@ionic/angular';
+import { ActionSheetController, RefresherCustomEvent, ToastController } from '@ionic/angular';
 import axios from 'axios';
 import { MessageComponent } from '../message/message.component';
 
@@ -15,9 +15,11 @@ export class HomePage implements OnInit{
   private data = inject(DataService);
 
   usuarios : any = [];
+  result : string | undefined;
 
   constructor( private toastController: ToastController,
-    private router: Router) {
+    private router: Router,
+    private actionSheetCtrl: ActionSheetController) {
     
   }
 
@@ -76,25 +78,65 @@ export class HomePage implements OnInit{
     await toast.present();
   }
 
-  public actionSheetButtons = [
-    {
-      text: 'Logout',
-      role: 'destructive',
-      data: {
-        action:  this.logout()/* 'delete' */,
-      },
-    },
-    {
-      text: 'Cancel',
-      role: 'cancel',
-      data: {
-        action: 'cancel',
-      },
-    },
-  ];
+  
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Logout',
+          role: 'destructive',
+          data: {
+            action: 'Logout',
+          },
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+
+    const result = await actionSheet.onDidDismiss();
+    console.log(result.data.action);
+    /* this.result = JSON.stringify(result, null, 2); */
+    if(result.data.action == 'Logout'){
+      this.logout();
+    }
+  }
 
   logout () {
     console.log("Logout apretado")
+    let token =localStorage.getItem('token');
+    let config = {
+      headers : {
+        "Authorization": token
+      }
+    }
+
+    console.log(config);
+    axios.post("http://localhost:4000/user/logout", "" , config)
+    .then( async result => {
+      console.log(result)
+      if (result.data.success == true) {
+        console.log("Succes del logout");
+        localStorage.removeItem('token');
+        this.presentToats ("Hasta Pronto!!!");
+      } else {
+        console.log(result.data.error);
+        this.presentToats (result.data.error );
+      }
+      
+    }).catch(error => {
+      console.log(error.message);
+      this.presentToats (error.message);
+    })
+
+    this.router.navigate(["/login"]);
   }
 
 }
