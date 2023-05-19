@@ -12,7 +12,7 @@ import { IonicModule } from '@ionic/angular';
 export class AppComponent {
   constructor(private navCtrl: NavController) {}
 
-  loggedInUser = "Enrique Bobadilla";
+  loggedInUser = "Hugo Areco";
   loggedInInicio = "home";
 
   goToProfile() {
