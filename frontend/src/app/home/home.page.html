@@ -16,6 +16,14 @@
       <ion-title size="large">
         Inbox
       </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button id="open-action-sheet" fill="outline">
+        <ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons"></ion-action-sheet>
+          <ion-icon slot="start" name="person-circle"></ion-icon>
+          Hola, Nombre
+        </ion-button>
+      </ion-buttons>
+        
     </ion-toolbar>
   </ion-header>
   
