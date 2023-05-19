@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
     //this.message = this.data.getMessageById(parseInt(id, 10));
-    axios.get("http://localhost:4000/user/" + id)
+    axios.get("http://localhost:3000/user/" + id)
     .then( result => {
       if (result.data.success == true) {
 
