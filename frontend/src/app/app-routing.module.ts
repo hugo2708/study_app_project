@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'list-themes',
+    loadChildren: () => import('./list-themes/list-themes.module').then( m => m.ListThemesPageModule)
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
