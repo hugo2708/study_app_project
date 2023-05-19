@@ -16,6 +16,14 @@
       <ion-title size="large">
         Inbox
       </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button id="open-action-sheet" fill="outline">
+        <ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons"></ion-action-sheet>
+          <ion-icon slot="start" name="person-circle"></ion-icon>
+          Hola, Nombre
+        </ion-button>
+      </ion-buttons>
+        
     </ion-toolbar>
   </ion-header>
   
@@ -24,7 +32,7 @@
       <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
     --> 
     <ion-item *ngFor="let usuario of usuarios" >
-      <ion-label [routerLink]="'/view-message/' + usuario.id" >{{usuario.id}} - {{usuario.name}} - {{usuario.last_name}} </ion-label>
+      <ion-label [routerLink]="'/view-user/' + usuario.id" >{{usuario.id}} - {{usuario.name}} - {{usuario.last_name}} </ion-label>
       <ion-icon   color="success" slot="end" name="pencil-outline" [routerLink]= "'/edit-user/' + usuario.id" ></ion-icon>
       <ion-icon  color="primary" slot="end" name="trash-outline"  ></ion-icon>
     

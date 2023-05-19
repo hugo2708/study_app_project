@@ -1,5 +1,6 @@
 const UserService = require("../service/users.service");
 const jwt = require ('jsonwebtoken');
+const { sequelize } = require("../connection");
 const listar = async function (req, res) {
     console.log("listar usuarios");
 
@@ -57,7 +58,7 @@ const actualizar = async function (req, res) {
     let usuarioRetorno = null; //Guardará el usuario que se va a incluir o editar
 
     try {
-            usuarioRetorno = await UserService.actualizar(  req.body.id, req.body.name, req.body.lastname, 
+            usuarioRetorno = await UserService.actualizar(  req.body.id, req.body.name, req.body.last_name, 
                                                             req.body.avatar, req.body.email, 
                                                             req.body.password, req.body.deleted);
         res.json({

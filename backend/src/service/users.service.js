@@ -35,11 +35,11 @@ const consultarPorCodigo = async function (id) {
     }
 };
 
-const actualizar = async function (id, name, lastname, avatar, email, password, deleted) {
+const actualizar = async function (id, name, last_name, avatar, email, password, deleted) {
     console.log("actualizar usuarios service");
     //Variables
     let usuarioRetorno = null; //Guardará el usuario que se va a incluir o editar
-    const data = {id, name, lastname, avatar, email, password, deleted};
+    const data = {id, name, last_name, avatar, email, password, deleted};
     
     try {
         let userModelResult = null;

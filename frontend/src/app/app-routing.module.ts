@@ -7,12 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'view-message/:id',
-    loadChildren: () => import('./view-message/view-message.module').then( m => m.ViewMessagePageModule)
+    path: 'view-user/:id',
+    loadChildren: () => import('./view-user/view-user.module').then( m => m.ViewUserPageModule)
   },
   {
     path: 'edit-user/:id',
     loadChildren: () => import('./edit-user/edit-user.module').then( m => m.EditUserPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: '',
