@@ -17,10 +17,9 @@
         Inbox
       </ion-title>
       <ion-buttons slot="primary">
-        <ion-button id="open-action-sheet" fill="outline">
-        <ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons"></ion-action-sheet>
+        <ion-button (click)="presentActionSheet()" fill="outline">
           <ion-icon slot="start" name="person-circle"></ion-icon>
-          Hola, Nombre
+          Perfil
         </ion-button>
       </ion-buttons>
         
