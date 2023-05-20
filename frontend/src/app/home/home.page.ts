@@ -4,6 +4,7 @@ import axios from 'axios';
 import { MessageComponent } from '../message/message.component';
 
 import { DataService, Message } from '../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomePage {
   refresh(ev: any) {
     setTimeout(() => {
       (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
+    }, 8100);
   }
 
   getMessages(): Message[] {
@@ -49,7 +50,7 @@ export class HomePage {
         "Authorization": token
       }
     }
-    axios.get("http://localhost:4000/users/list", config)
+    axios.get("http://localhost:8100/users/list", config)
     .then( result => {
       if (result.data.success == true) {
         this.usuarios = result.data.usuarios;
